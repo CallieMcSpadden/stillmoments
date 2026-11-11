@@ -1,0 +1,175 @@
+/*
+ * Still Moments: base styles.
+ * Colors come from src/style/tokens.ts (mirrored here as CSS custom properties).
+ * Guardrails: no pure black or white, no flashing, respect reduced motion.
+ */
+
+:root {
+  --deep-floor: #060a24;
+  --deep-water: #111a4d;
+  --deep-violet: #14174e;
+  --deep-glow: #6fd3b2;
+  --mid-teal: #3693bd;
+  --fog-light: #b7d7ea;
+  --dawn-cream: #f9e4c7;
+
+  --text: #dfe8ee; /* soft, never pure white */
+  --text-muted: #9fb3c4;
+
+  --ease-calm: cubic-bezier(0.37, 0, 0.23, 1);
+  --fade-slow: 1600ms;
+
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  color: var(--text);
+  background: var(--deep-floor);
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none; /* the whole screen is the breath input */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#app {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+  background: radial-gradient(
+      ellipse 120% 80% at 50% -10%,
+      color-mix(in oklch, var(--deep-water) 70%, var(--mid-teal)) 0%,
+      transparent 60%
+    ),
+    linear-gradient(180deg, var(--deep-water) 0%, var(--deep-violet) 45%, var(--deep-floor) 100%);
+}
+
+/* Placeholder stage. Replaced by the Three.js canvas at checkpoint 2+. */
+.stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.droplet {
+  width: clamp(56px, 9vmin, 96px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translateY(12vh);
+  background: radial-gradient(circle at 35% 28%, rgb(223 240 246 / 0.55) 0 8%, transparent 22%),
+    radial-gradient(circle at 50% 82%, var(--deep-glow) 0%, transparent 62%),
+    radial-gradient(circle at 50% 50%, rgb(60 110 170 / 0.55) 0%, rgb(20 40 90 / 0.25) 70%);
+  box-shadow:
+    0 0 32px 6px rgb(111 211 178 / 0.18),
+    inset 0 0 0 1px rgb(180 230 240 / 0.18);
+  opacity: 0;
+  animation: fade-in var(--fade-slow) var(--ease-calm) 300ms forwards;
+}
+
+.intro {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  margin-top: -18vh;
+  padding: 0 1.5rem;
+  text-align: center;
+  opacity: 0;
+  animation: fade-in var(--fade-slow) var(--ease-calm) 600ms forwards;
+  transition: opacity var(--fade-slow) var(--ease-calm);
+}
+
+.intro.is-leaving {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.title {
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(1.9rem, 5vmin, 3rem);
+  letter-spacing: 0.04em;
+}
+
+.subtitle,
+.hint {
+  margin: 0;
+  max-width: 28rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2.4vmin, 1.15rem);
+}
+
+.hint {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.begin {
+  margin-top: 0.6rem;
+  min-width: 9rem;
+  min-height: 3rem; /* large, forgiving target */
+  padding: 0.7rem 2rem;
+  font: inherit;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  background: rgb(111 211 178 / 0.1);
+  border: 1px solid rgb(183 215 234 / 0.35);
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background 600ms var(--ease-calm),
+    border-color 600ms var(--ease-calm);
+}
+
+.begin:hover,
+.begin:focus-visible {
+  background: rgb(111 211 178 / 0.18);
+  border-color: rgb(183 215 234 / 0.6);
+  outline: none;
+}
+
+.begin:focus-visible {
+  box-shadow: 0 0 0 3px rgb(183 215 234 / 0.35);
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Reduced motion: keep fades minimal and instant-ish, no movement. */
+@media (prefers-reduced-motion: reduce) {
+  .droplet,
+  .intro {
+    animation-duration: 1ms;
+    animation-delay: 0ms;
+  }
+
+  .intro,
+  .begin {
+    transition-duration: 1ms;
+  }
+}

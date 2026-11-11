@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
+    />
+    <meta name="theme-color" content="#060a24" />
+    <meta name="color-scheme" content="dark" />
+    <meta
+      name="description"
+      content="A few quiet minutes with a single drop of water. Breathe, settle, rise."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Still Moments</title>
+  </head>
+  <body>
+    <main id="app" aria-live="polite">
+      <!-- The world canvas mounts here (checkpoint 2+). -->
+      <div class="stage" aria-hidden="true">
+        <div class="droplet"></div>
+      </div>
+
+      <section class="intro" id="intro">
+        <h1 class="title">Still Moments</h1>
+        <p class="subtitle">A few quiet minutes with a single drop of water.</p>
+        <button class="begin" id="begin" type="button">Begin</button>
+        <p class="hint">Hold to breathe in, release to breathe out. Or simply watch.</p>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
