@@ -2,7 +2,9 @@
 
 A calm-first, breath-paced game for desktop and mobile web. You guide a single drop of water through the water cycle in gentle bursts: gather on a 4-second inhale, glide on an 8-second exhale. There are no scores, timers or ways to fail, just a few quiet minutes to settle between commitments.
 
-**Status:** pre-build scaffold. The first playable slice (rising from deep water to the surface at dawn) is built in checkpoints; see [`docs/BRIEF.md`](docs/BRIEF.md).
+**Status:** grey-box prototype. The breathing controls, timing and rise to the surface are playable, without final art or sound. The rest is built in checkpoints; see [`docs/BRIEF.md`](docs/BRIEF.md).
+
+**How to play:** left-click to breathe in (the drop gathers toward your cursor for 4 seconds), right-click to breathe out (it glides toward the cursor for 8 seconds). On a phone, taps alternate in and out. Or just rest: after a few seconds the drop breathes upward on its own.
 
 ## Run it locally
 
@@ -36,10 +38,12 @@ index.html              page shell
 public/                 static files (favicon)
 src/
   main.ts               entry point: intro, first tap, session start
+  session.ts            game loop: breaths, rest mode, camera, arrival
   styles.css            base styles (calm palette, reduced-motion support)
   style/tokens.ts       palette tokens from the storyboard
-  core/                 breathClock, input blending (checkpoint 2)
-  world/                Three.js scene, shaders, particles (checkpoint 4)
+  style/color.ts        OKLCH color blending for the depth arc
+  core/                 breath bursts (timing + easing) and click/tap input
+  world/                grey-box renderer now; Three.js world at checkpoint 4
   audio/                generated Web Audio soundscape (checkpoint 3)
   haptics/              Android-only haptic tick (checkpoint 3)
   ui/                   settings sheet, ending screen

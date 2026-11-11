@@ -25,6 +25,10 @@
   -webkit-font-smoothing: antialiased;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 *,
 *::before,
 *::after {
@@ -68,10 +72,10 @@ body {
 }
 
 .droplet {
-  width: clamp(56px, 9vmin, 96px);
+  width: 8.4vmin; /* matches the playable droplet */
   aspect-ratio: 1;
   border-radius: 50%;
-  transform: translateY(12vh);
+  transform: translateY(6vh); /* same spot as the playable droplet */
   background: radial-gradient(circle at 35% 28%, rgb(223 240 246 / 0.55) 0 8%, transparent 22%),
     radial-gradient(circle at 50% 82%, var(--deep-glow) 0%, transparent 62%),
     radial-gradient(circle at 50% 50%, rgb(60 110 170 / 0.55) 0%, rgb(20 40 90 / 0.25) 70%);
@@ -154,6 +158,98 @@ body {
   box-shadow: 0 0 0 3px rgb(183 215 234 / 0.35);
 }
 
+/* Breathing session (grey-box world on a canvas). */
+.world {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  cursor: crosshair;
+  transition: opacity var(--fade-slow) var(--ease-calm);
+}
+
+.world.is-visible {
+  opacity: 1;
+}
+
+.stage {
+  transition: opacity var(--fade-slow) var(--ease-calm);
+}
+
+.stage.is-leaving {
+  opacity: 0;
+}
+
+.session-hint {
+  position: absolute;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom) + 2.2rem);
+  z-index: 2;
+  width: min(34rem, calc(100% - 3rem));
+  margin: 0;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2400ms var(--ease-calm);
+}
+
+.session-hint.is-visible {
+  opacity: 0.85;
+}
+
+.session-hint.is-faded {
+  opacity: 0;
+}
+
+.ending {
+  position: absolute;
+  top: calc(env(safe-area-inset-top) + 14vh);
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: grid;
+  justify-items: center;
+  gap: 1.4rem;
+  padding: 0 1.5rem;
+  text-align: center;
+  color: #3a3440; /* dawn-readable, never pure black */
+  opacity: 0;
+  transition: opacity 2400ms var(--ease-calm);
+}
+
+.ending.is-visible {
+  opacity: 1;
+}
+
+.ending-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 4.4vmin, 2.4rem);
+  letter-spacing: 0.03em;
+}
+
+.ending-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.ending .begin {
+  color: #3a3440;
+  background: rgb(249 228 199 / 0.55);
+  border-color: rgb(162 153 149 / 0.5);
+}
+
+.ending .begin:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
 @keyframes fade-in {
   to {
     opacity: 1;
@@ -169,7 +265,14 @@ body {
   }
 
   .intro,
-  .begin {
+  .begin,
+  .world,
+  .stage {
     transition-duration: 1ms;
+  }
+
+  .session-hint,
+  .ending {
+    transition-duration: 600ms; /* a short fade still reads as calm, with no motion */
   }
 }

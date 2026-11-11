@@ -29,9 +29,13 @@ The players are students and working professionals who feel overwhelmed, keyed u
 - **Inhale (4 s), "gather":** the droplet draws in. It swells slightly, the surrounding light brightens a little, nearby micro-bubbles or particles drift toward it, and the sound swells (a low-pass filter opens slowly). Use an ease-in-out curve.
 - **Exhale (8 s), "glide":** the droplet releases upward and forward in one long burst that decelerates on an ease-out curve, so most of the movement happens early and then settles. Light and sound recede. The exhale must feel longer and softer than the inhale.
 - **Input (optional, forgiving):**
-  - Desktop: hold Space or the mouse button to inhale, release to exhale.
-  - Mobile: touch and hold anywhere to inhale, lift to exhale. Make the whole screen the target.
-  - If the player's timing differs from the pacer, blend toward the pacer over about 1 cycle. Don't snap. Never show a "wrong."
+  - Mouse or trackpad: **left-click to breathe in**, which moves the droplet toward the cursor over the 4 s inhale. **Right-click to breathe out**, which glides it toward the cursor's new position over the 8 s exhale. Block the browser's right-click menu on the play area. On a Mac trackpad, a two-finger click is a right-click.
+  - Touch: taps alternate in, out, in, and so on, each toward the finger.
+  - Keyboard: Space alternates in and out, straight upward.
+  - Each breath covers the same distance (0.2 of the screen's shorter side), so the inhale moves twice as fast as the exhale and the motion carries the 4/8 rhythm.
+  - A new click starts its breath from wherever the droplet is, with no snapping. Clicks in any order are fine; nothing is ever "wrong."
+  - The droplet roams freely near the centre of the screen. The camera only scrolls to keep it on-screen.
+  - Follow mode: after 6 s with no input, the droplet breathes upward on its own (in, out, in, and so on) until the player clicks again.
 - **Progress:** each completed cycle moves the droplet one stage closer to the surface. Depth drives the palette, light shafts, and sound.
 - **Ending:** the droplet breaks the surface into soft dawn air. Hold that for 2 cycles, then show one line of copy ("You made it to the surface.") and two quiet options: "Continue the cycle" (disabled stub for now) and "Return to your day."
 

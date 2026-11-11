@@ -16,8 +16,9 @@
     <title>Still Moments</title>
   </head>
   <body>
-    <main id="app" aria-live="polite">
-      <!-- The world canvas mounts here (checkpoint 2+). -->
+    <main id="app">
+      <canvas id="world" class="world" hidden aria-label="A drop of water rising through the sea"></canvas>
+
       <div class="stage" aria-hidden="true">
         <div class="droplet"></div>
       </div>
@@ -26,7 +27,17 @@
         <h1 class="title">Still Moments</h1>
         <p class="subtitle">A few quiet minutes with a single drop of water.</p>
         <button class="begin" id="begin" type="button">Begin</button>
-        <p class="hint">Hold to breathe in, release to breathe out. Or simply watch.</p>
+        <p class="hint">Breathe in, the drop gathers. Breathe out, it glides. Or simply watch.</p>
+      </section>
+
+      <p class="session-hint" id="session-hint" aria-live="polite"></p>
+
+      <section class="ending" id="ending" hidden aria-live="polite">
+        <h2 class="ending-title">You made it to the surface.</h2>
+        <div class="ending-actions">
+          <button class="begin" id="continue" type="button" disabled>Continue the cycle (coming soon)</button>
+          <button class="begin" id="return" type="button">Return to your day</button>
+        </div>
       </section>
     </main>
 
